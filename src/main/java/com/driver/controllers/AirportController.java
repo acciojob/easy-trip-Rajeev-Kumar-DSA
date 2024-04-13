@@ -116,7 +116,7 @@ public class AirportController {
 
         //Return a "SUCCESS" message string after adding a flight.
         flightService.addFlightService(flight);
-        return "Success";
+        return "SUCCESS";
     }
 
 

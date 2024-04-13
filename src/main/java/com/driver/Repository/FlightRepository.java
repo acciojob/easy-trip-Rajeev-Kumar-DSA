@@ -39,5 +39,9 @@ public class FlightRepository {
     }
 
 
+    public boolean containsFlight(int flightId){
+        return flightDB.containsKey(flightId);
+    }
+
 
 }

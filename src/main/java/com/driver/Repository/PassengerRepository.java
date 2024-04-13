@@ -11,6 +11,8 @@ public class PassengerRepository {
     HashMap<Integer, Passenger> passengerDB = new HashMap<>();
     HashMap<Integer, Integer> bookFlights = new HashMap<>();
 
+    FlightRepository flightRepository = new FlightRepository();
+
     public void addPassenger(Passenger passenger){
         int key = passenger.getPassengerId();
         if(!passengerDB.containsKey(key))
@@ -28,9 +30,23 @@ public class PassengerRepository {
 
 
     public void bookTicket(int passengerId, int flightId){
-        if(passengerDB.containsKey(passengerId)){
-            bookFlights.put(passengerId, flightId);
+
+        // if the passenger exists in the passenger database
+        if(!passengerDB.containsKey(passengerId)){
+            return;
         }
+
+        // if the flight exists in the flight database (optional, depending on your design)
+        if(!flightRepository.containsFlight(flightId)){
+            return;
+        }
+
+        // Check if the passenger already has a booked flight (optional, depending on your design)
+        if (bookFlights.containsKey(passengerId)){
+            return;
+        }
+
+        bookFlights.put(passengerId, flightId);
     }
 
     public int getFlightIdForPassenger(int passengerId){

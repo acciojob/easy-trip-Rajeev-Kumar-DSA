@@ -39,7 +39,7 @@ public class FlightService {
         }
 
         if(shortestDuration == Double.MAX_VALUE){
-            return 0;
+            return -1;
         }
 
         return shortestDuration;
