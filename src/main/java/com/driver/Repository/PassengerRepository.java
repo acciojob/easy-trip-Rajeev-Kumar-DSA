@@ -2,6 +2,7 @@ package com.driver.Repository;
 
 
 import com.driver.model.Passenger;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -10,6 +11,8 @@ import java.util.HashMap;
 public class PassengerRepository {
     HashMap<Integer, Passenger> passengerDB = new HashMap<>();
     HashMap<Integer, Integer> bookFlights = new HashMap<>();
+
+    HashMap<Integer, Integer> passengerPerFlight = new HashMap<>();
 
     FlightRepository flightRepository = new FlightRepository();
 
@@ -55,5 +58,14 @@ public class PassengerRepository {
 
     public void cancleTicket(int passengerId){
         bookFlights.remove(passengerId);
+    }
+
+
+    public void bookFlightPassenger(int flightId, int passengerId){
+        passengerPerFlight.put(flightId, passengerPerFlight.getOrDefault(flightId, 0)+1);
+    }
+
+    public int getNumberOfPassengerForFlight(int flightId){
+        return passengerPerFlight.getOrDefault(flightId, 0);
     }
 }

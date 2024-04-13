@@ -112,7 +112,7 @@ public class FlightService {
         }
 
         // Calculate fare based on the number of people who have already booked the flight
-        int noOfPeopleWhoHaveAlreadyBooked = getNumberOfPassengers();
+        int noOfPeopleWhoHaveAlreadyBooked = passengerRepository.getNumberOfPassengerForFlight(flightId);
         int basePrice = 3000;
         int fare = basePrice + (noOfPeopleWhoHaveAlreadyBooked * 50);
 
