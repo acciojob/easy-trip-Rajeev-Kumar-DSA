@@ -217,4 +217,20 @@ public class FlightService {
 //    }
 
 
+    public int calculateRevenueOfAFlightService(int flightId){
+        Flight flight = flightRepository.getFlight(flightId);
+
+        if(flight == null){
+            return  0;
+        }
+
+        int fare = calculateFlightFareService(flightId);
+        int numberOfPassengers = passengerRepository.getTotalNumberOfPassengers();
+
+        return fare * numberOfPassengers;
+    }
+
+
+
+
 }
