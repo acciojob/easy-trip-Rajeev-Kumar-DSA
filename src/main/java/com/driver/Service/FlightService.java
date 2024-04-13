@@ -1,6 +1,7 @@
 package com.driver.Service;
 
 
+import com.driver.Repository.AirportRepository;
 import com.driver.Repository.FlightRepository;
 import com.driver.Repository.PassengerRepository;
 import com.driver.model.Airport;
@@ -15,7 +16,11 @@ import java.util.List;
 @Service
 public class FlightService {
     FlightRepository flightRepository = new FlightRepository();
+
     PassengerRepository passengerRepository = new PassengerRepository();
+
+    AirportRepository airportRepository = new AirportRepository();
+
     public double getShortestDurationBetweenCitiesService(City fromCity, City toCity){
         // first get all the flights details here
         List<Flight> flights = flightRepository.getAllFlights();
@@ -132,4 +137,84 @@ public class FlightService {
 
         return "SUCCESS";
     }
+
+
+
+
+    public String cancelATicketService(int flightId, int passengerId){
+        Flight flight = flightRepository.getFlight(flightId);
+        if(flight == null){
+            return "FAILURE";
+        }
+
+        // check passenger exist or not
+        Passenger passenger = passengerRepository.getPassenger(passengerId);
+        if (passenger == null){
+            return "FAILURE";
+        }
+
+        // check if the passenger has a ticket for the given flight
+        int bookedFlightId = passengerRepository.getFlightIdForPassenger(passengerId);
+        if (bookedFlightId != flightId){
+            return "FAILURE";
+        }
+
+        // cancle the ticket for the passenger
+        passengerRepository.cancleTicket(passengerId);
+
+        return "SUCCESS";
+
+    }
+
+    public void addFlightService(Flight flight){
+        flightRepository.addFlight(flight);
+    }
+
+
+    public String getAirportNameFromFlightIdService(int flightId){
+        Flight flight = flightRepository.getFlight(flightId);
+
+        if(flight == null){
+            return null;  // not able to find
+        }
+        // Get the departure city from the flight
+        City departureCity = flight.getFromCity();
+
+        // Now, find the airport associated with the departure city
+        Airport airport = findAirportByCity(departureCity);
+
+        if (airport == null){
+            return null;
+        }
+
+        return airport.getAirportName();
+
+    }
+    // Helper method to find the airport by city
+    private Airport findAirportByCity(City city){
+        // Assuming you have a method in AirportRepository to find airport by city
+        return airportRepository.getAirportByCity(city);
+    }
+
+
+
+
+//    public int countOfBookingsDoneByPassengerAllCombinedService(int passengerId){
+//        Passenger passenger = passengerRepository.getPassenger(passengerId);
+//
+//        if(passenger == null){
+//            return 0;
+//        }
+//
+//        int bookingCount = 0;
+//
+//        // Iterate through all flights and count bookings made by the passenger
+//        for (Flight flight : flightRepository.getAllFlights()){
+//            // Check if the passenger has booked the flight
+//            if(flight.)
+//        }
+//
+//    }
+
+
 }

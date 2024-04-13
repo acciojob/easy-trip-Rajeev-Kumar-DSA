@@ -13,7 +13,8 @@ public class PassengerRepository {
 
     public void addPassenger(Passenger passenger){
         int key = passenger.getPassengerId();
-        passengerDB.put(key, passenger);
+        if(!passengerDB.containsKey(key))
+            passengerDB.put(key, passenger);
     }
 
     public Passenger getPassenger(int passengerID){
@@ -34,5 +35,9 @@ public class PassengerRepository {
 
     public int getFlightIdForPassenger(int passengerId){
         return bookFlights.getOrDefault(passengerId, -1);
+    }
+
+    public void cancleTicket(int passengerId){
+        bookFlights.remove(passengerId);
     }
 }

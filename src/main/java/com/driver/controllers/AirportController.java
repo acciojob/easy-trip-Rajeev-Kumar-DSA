@@ -6,6 +6,7 @@ import com.driver.Repository.FlightRepository;
 import com.driver.Repository.PassengerRepository;
 import com.driver.Service.AirportService;
 import com.driver.Service.FlightService;
+import com.driver.Service.PassengerService;
 import com.driver.model.Airport;
 import com.driver.model.City;
 import com.driver.model.Flight;
@@ -25,6 +26,8 @@ public class AirportController {
     AirportService airportService = new AirportService();
 
     FlightService flightService = new FlightService();
+
+    PassengerService passengerService = new PassengerService();
 
     @PostMapping("/add_airport")
     public String addAirport(@RequestBody Airport airport){
@@ -94,8 +97,8 @@ public class AirportController {
         // then return a "FAILURE" message
         // Otherwise return a "SUCCESS" message
         // and also cancel the ticket that passenger had booked earlier on the given flightId
-
-       return null;
+        return flightService.cancelATicketService(flightId, passengerId);
+//       return null;
     }
 
 
@@ -103,14 +106,17 @@ public class AirportController {
     public int countOfBookingsDoneByPassengerAllCombined(@PathVariable("passengerId")Integer passengerId){
 
         //Tell the count of flight bookings done by a passenger: This will tell the total count of flight bookings done by a passenger :
-       return 0;
+       // wait........................
+
+        return 0;
     }
 
     @PostMapping("/add-flight")
     public String addFlight(@RequestBody Flight flight){
 
         //Return a "SUCCESS" message string after adding a flight.
-       return null;
+        flightService.addFlightService(flight);
+        return "Success";
     }
 
 
@@ -119,8 +125,8 @@ public class AirportController {
 
         //We need to get the starting airportName from where the flight will be taking off (Hint think of City variable if that can be of some use)
         //return null incase the flightId is invalid or you are not able to find the airportName
-
-        return null;
+        return flightService.getAirportNameFromFlightIdService(flightId);
+//        return null;
     }
 
 
@@ -141,8 +147,8 @@ public class AirportController {
 
         //Add a passenger to the database
         //And return a "SUCCESS" message if the passenger has been added successfully.
-
-       return null;
+        passengerService.addPassengerService(passenger);
+       return "SUCCESS";
     }
 
 

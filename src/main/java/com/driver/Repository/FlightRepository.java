@@ -13,12 +13,14 @@ import java.util.List;
 public class FlightRepository {
     HashMap<Integer, Flight> flightDB = new HashMap<>();
 
+
     // add the flight details here  -> for flight class
     public void addFlight(Flight flight){
         // get the unique key first
         int key = flight.getFlightId();
-        // now I will store in DB
-        flightDB.put(key, flight);  // respective key -> and flight details
+        // now I will store in DB -> when same key will not present alreayd in map
+        if(!flightDB.containsKey(key))
+            flightDB.put(key, flight);  // respective key -> and flight details
     }
 
 
@@ -35,4 +37,7 @@ public class FlightRepository {
         }
         return flights;
     }
+
+
+
 }

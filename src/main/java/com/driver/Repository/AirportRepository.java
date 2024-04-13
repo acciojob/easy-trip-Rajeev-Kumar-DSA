@@ -2,6 +2,7 @@ package com.driver.Repository;
 
 
 import com.driver.model.Airport;
+import com.driver.model.City;
 import com.driver.model.Flight;
 import org.springframework.stereotype.Repository;
 
@@ -36,5 +37,14 @@ public class AirportRepository {
             airports.add(airport);
         }
         return airports;
+    }
+
+    public Airport getAirportByCity(City city){
+        for(Airport airport : airportDB.values()){
+            if (airport.getCity() == city){
+                return airport;
+            }
+        }
+        return  null;
     }
 }
