@@ -1,10 +1,13 @@
 package com.driver.Repository;
 
 
+import com.driver.model.Airport;
 import com.driver.model.Flight;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public class FlightRepository {
@@ -22,5 +25,14 @@ public class FlightRepository {
     // get the flight details - for respective flightId
     public Flight getFlight(int flightId){
         return flightDB.getOrDefault(flightId, null);
+    }
+
+
+    public List<Flight> getAllFlights(){
+        List<Flight> flights = new ArrayList<>();
+        for(Flight flight : flightDB.values()){
+            flights.add(flight);
+        }
+        return flights;
     }
 }

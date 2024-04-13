@@ -5,7 +5,9 @@ import com.driver.model.Airport;
 import com.driver.model.Flight;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public class AirportRepository {
@@ -25,5 +27,14 @@ public class AirportRepository {
     // get the airportDB details - for respective flightId
     public Airport getAirport(String airportName){
         return airportDB.getOrDefault(airportName, null);
+    }
+
+
+    public List<Airport> getAllAirport(){
+        List<Airport> airports = new ArrayList<>();
+        for(Airport airport : airportDB.values()){
+            airports.add(airport);
+        }
+        return airports;
     }
 }

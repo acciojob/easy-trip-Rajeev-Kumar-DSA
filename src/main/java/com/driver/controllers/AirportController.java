@@ -5,6 +5,7 @@ import com.driver.Repository.AirportRepository;
 import com.driver.Repository.FlightRepository;
 import com.driver.Repository.PassengerRepository;
 import com.driver.Service.AirportService;
+import com.driver.Service.FlightService;
 import com.driver.model.Airport;
 import com.driver.model.City;
 import com.driver.model.Flight;
@@ -22,8 +23,8 @@ import java.util.Objects;
 public class AirportController {
 
     AirportService airportService = new AirportService();
-    FlightRepository flightRepository = new FlightRepository();
-    PassengerRepository passengerRepository = new PassengerRepository();
+
+    FlightService flightService = new FlightService();
 
     @PostMapping("/add_airport")
     public String addAirport(@RequestBody Airport airport){
@@ -39,8 +40,9 @@ public class AirportController {
 
         //Largest airport is in terms of terminals. 3 terminal airport is larger than 2 terminal airport
         //Incase of a tie return the Lexicographically smallest airportName
+        return airportService.getLargestAirportNameService();
 
-       return null;
+//       return null;
     }
 
     @GetMapping("/get-shortest-time-travel-between-cities")
@@ -48,8 +50,8 @@ public class AirportController {
 
         //Find the duration by finding the shortest flight that connects these 2 cities directly
         //If there is no direct flight between 2 cities return -1.
-
-       return 0;
+       return flightService.getShortestDurationBetweenCitiesService(fromCity, toCity);
+//       return 0;
     }
 
     @GetMapping("/get-number-of-people-on-airport-on/{date}")
@@ -57,8 +59,8 @@ public class AirportController {
 
         //Calculate the total number of people who have flights on that day on a particular airport
         //This includes both the people who have come for a flight and who have landed on an airport after their flight
-
-        return 0;
+        return flightService.getNumberOfPeopleOnService(date,airportName);
+//        return 0;
     }
 
     @GetMapping("/calculate-fare")
@@ -68,8 +70,8 @@ public class AirportController {
         //Price for any flight will be : 3000 + noOfPeopleWhoHaveAlreadyBooked*50
         //Suppose if 2 people have booked the flight already : the price of flight for the third person will be 3000 + 2*50 = 3100
         //This will not include the current person who is trying to book, he might also be just checking price
-
-       return 0;
+        return flightService.calculateFlightFareService(flightId);
+//       return 0;
 
     }
 
@@ -81,8 +83,8 @@ public class AirportController {
         //return a String "FAILURE"
         //Also if the passenger has already booked a flight then also return "FAILURE".
         //else if you are able to book a ticket then return "SUCCESS"
-
-        return null;
+        return flightService.bookATicketService(flightId, passengerId);
+//        return null;
     }
 
     @PutMapping("/cancel-a-ticket")
