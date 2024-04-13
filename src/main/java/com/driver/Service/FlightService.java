@@ -54,12 +54,19 @@ public class FlightService {
             // Retrieve the airport name from the flight's departure city
             // here I will get the departure location
             String departureAirportName = flight.getFromCity().name();
+            String arrivalAirportName = flight.getToCity().name();
 
             // Check if the departure airport name matches the given airportName
             if(departureAirportName.equals(airportName)){
                 // flight's date matches the given date
                 if (flight.getFlightDate().equals(date)){
                     // Increment the number of people by the number of passengers on this flight
+                    totalNumberOfPeople += flight.getMaxCapacity();
+                }
+            }
+
+            if(arrivalAirportName.equals(airportName)){
+                if(flight.getFlightDate().equals(date)){
                     totalNumberOfPeople += flight.getMaxCapacity();
                 }
             }
