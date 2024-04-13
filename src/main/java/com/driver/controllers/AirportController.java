@@ -1,6 +1,10 @@
 package com.driver.controllers;
 
 
+import com.driver.Repository.AirportRepository;
+import com.driver.Repository.FlightRepository;
+import com.driver.Repository.PassengerRepository;
+import com.driver.Service.AirportService;
 import com.driver.model.Airport;
 import com.driver.model.City;
 import com.driver.model.Flight;
@@ -16,12 +20,17 @@ import java.util.Objects;
 
 @RestController
 public class AirportController {
+
+    AirportService airportService = new AirportService();
+    FlightRepository flightRepository = new FlightRepository();
+    PassengerRepository passengerRepository = new PassengerRepository();
+
     @PostMapping("/add_airport")
     public String addAirport(@RequestBody Airport airport){
 
         //Simply add airport details to your database
         //Return a String message "SUCCESS"
-
+        airportService.addAirportService(airport);
         return "SUCCESS";
     }
 
